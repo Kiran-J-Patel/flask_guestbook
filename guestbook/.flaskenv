@@ -1,0 +1,2 @@
+FLASK_APP=guestbook.py
+FLASK_DEBUG=1
