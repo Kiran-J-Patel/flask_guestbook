@@ -9,6 +9,7 @@ sudo apt-get -y install supervisor nginx
 
 # env variable setup
 python3 -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
 pip install gunicorn pymysql
 SECRET=`python3 -c "import uuid; print(uuid.uuid4().hex)"` 
@@ -24,10 +25,10 @@ flask db upgrade
 cd ../ubuntu_deployment
 
 # gunicorn setup
-sudo mv guestbook.conf.supervisord /etc/supervisor/conf.d/guestbook.conf
+sudo cp guestbook.conf.supervisord /etc/supervisor/conf.d/guestbook.conf
 sudo supervisorctl reload
 
 #nginx setup
 sudo rm /etc/nginx/sites-enabled/default
-sudo mv guestbook.nginx /etc/nginx/sites-enabled/guestbook
+sudo cp guestbook.nginx /etc/nginx/sites-enabled/guestbook
 sudo service nginx reload
