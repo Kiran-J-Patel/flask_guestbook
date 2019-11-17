@@ -1,0 +1,8 @@
+[program:microblog]
+command=/home/ubuntu/flask_guestbook/venv/bin/gunicorn -b localhost:8000 -w 2 guestbook:app
+directory=/home/ubuntu/flask_guestbook
+user=ubuntu
+autostart=true
+autorestart=true
+stopasgroup=true
+killasgroup=true
