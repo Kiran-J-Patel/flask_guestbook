@@ -11,10 +11,8 @@ sudo apt-get -y install supervisor nginx
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-pip install gunicorn pymysql
 SECRET=`python3 -c "import uuid; print(uuid.uuid4().hex)"` 
 echo "SECRET_KEY=$SECRET" >> .env
-# echo "DATABASE_URL=mysql+pymysql://guestbook:temppassword@localhost:3306/guestbook" >> ../guestbook/.env
 echo "export FLASK_APP=guestbook.py" >> ~/.profile
 
 # flask db setup !!!!!! TEMP DB SHOULD BE MOVED TO RDS INSTANCE
@@ -24,8 +22,8 @@ flask db upgrade
 
 cd ../ubuntu_deployment
 
-# gunicorn setup
-sudo cp guestbook.conf.supervisord /etc/supervisor/conf.d/guestbook.conf
+# flask web setup
+cp guestbook.conf.supervisord /etc/supervisor/conf.d/guestbook.conf
 sudo supervisorctl reload
 
 #nginx setup
